@@ -33,10 +33,38 @@ def busca(rut):
 def agregar():
     return render_template("agregar.html")
 
+@app.route("/agregarUsuario", methods=["POST"])
+def agregarUsuario():
+    rut = request.form["agregarRut"]
+    nombre = request.form["agregarNombre"]
+    apellido = request.form["agregarApellido"]
+    correo = request.form["agregarCorreo"]
+    u = model.Usuario()
+    u.Rut = rut
+    u.Nombre = nombre
+    u.Apellido = apellido
+    u.Correo = correo
+    u.agregar()
+    return redirect(url_for("listar"))
+
+
 @app.route("/modificar")
 def modificar():
     return render_template("modificar.html")
 
+@app.route("/modificarUsuario", methods=["POST"])
+def editarUsuario():
+    rut = request.form["editarRut"]
+    nombre = request.form["txtNombre"]
+    apellido = request.form["txtApellido"]
+    correo = request.form["txtCorreo"]
+    u = model.Usuario()
+    u.Rut = rut
+    u.Nombre = nombre
+    u.Apellido = apellido
+    u.Correo = correo
+    u.modificar()
+    return redirect(url_for("listar"))
 
 @app.route("/buscar")
 def buscar():
